@@ -10,11 +10,11 @@ import javax.swing.JPanel;
  * @version 2010.11.17
  */
 public class BoardSquare
-    extends JPanel{
-    private int            row;
-    private int            col;
+extends JPanel {
+    private int row;
+    private int col;
     private ChessGamePiece piece;
-    private JLabel         imageLabel;
+    private JLabel imageLabel;
     // ----------------------------------------------------------
     /**
      * Create a new BoardSquare object.
@@ -26,7 +26,7 @@ public class BoardSquare
      * @param piece
      *            the game piece
      */
-    public BoardSquare( int row, int col, ChessGamePiece piece ){
+    public BoardSquare(int row, int col, ChessGamePiece piece) {
         super();
         this.row = row;
         this.col = col;
@@ -36,14 +36,14 @@ public class BoardSquare
     /**
      * Updates the image for this BoardSquare.
      */
-    private void updateImage(){
-        if ( imageLabel != null ){
+    private void updateImage() {
+        if (imageLabel != null) {
             removeAll();
         }
-        if ( piece != null ){
+        if (piece != null) {
             imageLabel = new JLabel();
-            imageLabel.setIcon( piece.getImage() );
-            add( imageLabel );     
+            imageLabel.setIcon(piece.getImage());
+            add(imageLabel);
         }
         revalidate(); // repaint wasn't working, gotta force the window manager
         // to redraw...
@@ -63,7 +63,7 @@ public class BoardSquare
      *
      * @return int the column number
      */
-    public int getColumn(){
+    public int getColumn() {
         return col;
     }
     // ----------------------------------------------------------
@@ -72,7 +72,7 @@ public class BoardSquare
      *
      * @return GamePiece the piece
      */
-    public ChessGamePiece getPieceOnSquare(){
+    public ChessGamePiece getPieceOnSquare() {
         return piece;
     }
     // ----------------------------------------------------------
@@ -82,7 +82,7 @@ public class BoardSquare
      * @param p
      *            the piece
      */
-    public void setPieceOnSquare( ChessGamePiece p ){
+    public void setPieceOnSquare(ChessGamePiece p) {
         piece = p;
         updateImage();
     }
@@ -90,7 +90,7 @@ public class BoardSquare
     /**
      * Clears this square, removing the icon and the piece.
      */
-    public void clearSquare(){
+    public void clearSquare() {
         piece = null;
         removeAll();
     }

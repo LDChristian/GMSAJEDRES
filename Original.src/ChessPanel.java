@@ -10,31 +10,31 @@ import javax.swing.*;
  * @version 2010.11.17
  */
 public class ChessPanel
-    extends JPanel{
-    private ChessMenuBar    menuBar;
-    private ChessGameBoard  gameBoard;
-    private ChessGameLog    gameLog;
-    private ChessGraveyard  playerOneGraveyard;
-    private ChessGraveyard  playerTwoGraveyard;
+extends JPanel {
+    private ChessMenuBar menuBar;
+    private ChessGameBoard gameBoard;
+    private ChessGameLog gameLog;
+    private ChessGraveyard playerOneGraveyard;
+    private ChessGraveyard playerTwoGraveyard;
     private ChessGameEngine gameEngine;
     // ----------------------------------------------------------
     /**
      * Create a new ChessPanel object.
      */
-    public ChessPanel(){
-        this.setLayout( new BorderLayout() );
+    public ChessPanel() {
+        this.setLayout(new BorderLayout());
         menuBar = new ChessMenuBar();
         gameBoard = new ChessGameBoard();
         gameLog = new ChessGameLog();
-        playerOneGraveyard = new ChessGraveyard( "Player 1's graveyard" );
-        playerTwoGraveyard = new ChessGraveyard( "Player 2's graveyard" );
-        this.add( menuBar, BorderLayout.NORTH );
-        this.add( gameBoard, BorderLayout.CENTER );
-        this.add( gameLog, BorderLayout.SOUTH );
-        this.add( playerOneGraveyard, BorderLayout.WEST );
-        this.add( playerTwoGraveyard, BorderLayout.EAST );
-        this.setPreferredSize( new Dimension( 800, 600 ) );
-        gameEngine = new ChessGameEngine( gameBoard ); // start the game
+        playerOneGraveyard = new ChessGraveyard("Player 1's graveyard");
+        playerTwoGraveyard = new ChessGraveyard("Player 2's graveyard");
+        this.add(menuBar, BorderLayout.NORTH);
+        this.add(gameBoard, BorderLayout.CENTER);
+        this.add(gameLog, BorderLayout.SOUTH);
+        this.add(playerOneGraveyard, BorderLayout.WEST);
+        this.add(playerTwoGraveyard, BorderLayout.EAST);
+        this.setPreferredSize(new Dimension(800, 600));
+        gameEngine = new ChessGameEngine(gameBoard); // start the game
     }
     // ----------------------------------------------------------
     /**
@@ -42,7 +42,7 @@ public class ChessPanel
      * 
      * @return ChessGameLog the ChessGameLog object
      */
-    public ChessGameLog getGameLog(){
+    public ChessGameLog getGameLog() {
         return gameLog;
     }
     // ----------------------------------------------------------
@@ -51,7 +51,7 @@ public class ChessPanel
      * 
      * @return ChessGameBoard the ChessGameBoard object
      */
-    public ChessGameBoard getGameBoard(){
+    public ChessGameBoard getGameBoard() {
         return gameBoard;
     }
     // ----------------------------------------------------------
@@ -60,7 +60,7 @@ public class ChessPanel
      * 
      * @return ChessGameEngine the ChessGameEngine object
      */
-    public ChessGameEngine getGameEngine(){
+    public ChessGameEngine getGameEngine() {
         return gameEngine;
     }
     // ----------------------------------------------------------
@@ -71,15 +71,12 @@ public class ChessPanel
      *            the number of the player (1 or 2)
      * @return ChessGraveyard the graveyard requested
      */
-    public ChessGraveyard getGraveyard( int whichPlayer ){
-        if ( whichPlayer == 1 ){
+    public ChessGraveyard getGraveyard(int whichPlayer) {
+        if (whichPlayer == 1) {
             return playerOneGraveyard;
-        }
-        else if ( whichPlayer == 2 ){
+        } else if (whichPlayer == 2) {
             return playerTwoGraveyard;
-        }
-        else
-        {
+        } else {
             return null;
         }
     }

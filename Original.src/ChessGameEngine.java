@@ -12,13 +12,13 @@ import java.awt.event.MouseEvent;
  * @author Danielle Bushrow (dbushrow)
  * @version 2010.11.17
  */
-public class ChessGameEngine{
+public class ChessGameEngine {
     private ChessGamePiece currentPiece;
-    private boolean        firstClick;
-    private int            currentPlayer;
+    private boolean firstClick;
+    private int currentPlayer;
     private ChessGameBoard board;
-    private King           king1;
-    private King           king2;
+    private King king1;
+    private King king2;
     // ----------------------------------------------------------
     /**
      * Create a new ChessGameEngine object. Accepts a fully-created
@@ -27,44 +27,44 @@ public class ChessGameEngine{
      * @param board
      *            the reference ChessGameBoard
      */
-    public ChessGameEngine( ChessGameBoard board ){
+    public ChessGameEngine(ChessGameBoard board) {
         firstClick = true;
         currentPlayer = 1;
         this.board = board;
-        this.king1 = (King)board.getCell( 7, 3 ).getPieceOnSquare();
-        this.king2 = (King)board.getCell( 0, 3 ).getPieceOnSquare();
-        ( (ChessPanel)board.getParent() ).getGameLog().clearLog();
-        ( (ChessPanel)board.getParent() ).getGameLog().addToLog(
-            "A new chess "
-                + "game has been started. Player 1 (white) will play "
-                + "against Player 2 (black). BEGIN!" );
+        this.king1 = (King) board.getCell(7, 3).getPieceOnSquare();
+        this.king2 = (King) board.getCell(0, 3).getPieceOnSquare();
+        ((ChessPanel) board.getParent()).getGameLog().clearLog();
+        ((ChessPanel) board.getParent()).getGameLog().addToLog(
+            "A new chess " +
+            "game has been started. Player 1 (white) will play " +
+            "against Player 2 (black). BEGIN!");
     }
     // ----------------------------------------------------------
     /**
      * Resets the game to its original state.
      */
-    public void reset(){
+    public void reset() {
         firstClick = true;
         currentPlayer = 1;
-        ( (ChessPanel)board.getParent() ).getGraveyard( 1 ).clearGraveyard();
-        ( (ChessPanel)board.getParent() ).getGraveyard( 2 ).clearGraveyard();
-        ( (ChessPanel)board.getParent() ).getGameBoard().initializeBoard();
-        ( (ChessPanel)board.getParent() ).revalidate();
-        this.king1 = (King)board.getCell( 7, 3 ).getPieceOnSquare();
-        this.king2 = (King)board.getCell( 0, 3 ).getPieceOnSquare();
-        ( (ChessPanel)board.getParent() ).getGameLog().clearLog();
-        ( (ChessPanel)board.getParent() ).getGameLog().addToLog(
-            "A new chess "
-                + "game has been started. Player 1 (white) will play "
-                + "against Player 2 (black). BEGIN!" );
+        ((ChessPanel) board.getParent()).getGraveyard(1).clearGraveyard();
+        ((ChessPanel) board.getParent()).getGraveyard(2).clearGraveyard();
+        ((ChessPanel) board.getParent()).getGameBoard().initializeBoard();
+        ((ChessPanel) board.getParent()).revalidate();
+        this.king1 = (King) board.getCell(7, 3).getPieceOnSquare();
+        this.king2 = (King) board.getCell(0, 3).getPieceOnSquare();
+        ((ChessPanel) board.getParent()).getGameLog().clearLog();
+        ((ChessPanel) board.getParent()).getGameLog().addToLog(
+            "A new chess " +
+            "game has been started. Player 1 (white) will play " +
+            "against Player 2 (black). BEGIN!");
     }
     /**
      * Switches the turn to be the next player's turn.
      */
-    private void nextTurn(){
-        currentPlayer = ( currentPlayer == 1 ) ? 2 : 1;
-        ( (ChessPanel)board.getParent() ).getGameLog().addToLog(
-                "It is now Player " + currentPlayer + "'s turn." );
+    private void nextTurn() {
+        currentPlayer = (currentPlayer == 1) ? 2 : 1;
+        ((ChessPanel) board.getParent()).getGameLog().addToLog(
+            "It is now Player " + currentPlayer + "'s turn.");
     }
     // ----------------------------------------------------------
     /**
@@ -72,7 +72,7 @@ public class ChessGameEngine{
      *
      * @return int the current player (1 or 2)
      */
-    public int getCurrentPlayer(){
+    public int getCurrentPlayer() {
         return currentPlayer;
     }
     /**
@@ -82,20 +82,17 @@ public class ChessGameEngine{
      *            the player to check
      * @return boolean true if the player does have legal moves, false otherwise
      */
-    public boolean playerHasLegalMoves( int playerNum ){
-        ArrayList<ChessGamePiece> pieces;
-        if ( playerNum == 1 ){
+    public boolean playerHasLegalMoves(int playerNum) {
+        ArrayList < ChessGamePiece > pieces;
+        if (playerNum == 1) {
             pieces = board.getAllWhitePieces();
-        }
-        else if ( playerNum == 2 ){
+        } else if (playerNum == 2) {
             pieces = board.getAllBlackPieces();
-        }
-        else
-        {
+        } else {
             return false;
         }
-        for ( ChessGamePiece currPiece : pieces ){
-            if ( currPiece.hasLegalMoves( board ) ){
+        for (ChessGamePiece currPiece: pieces) {
+            if (currPiece.hasLegalMoves(board)) {
                 return true;
             }
         }
@@ -106,22 +103,21 @@ public class ChessGameEngine{
      * the correct color and if the user actually clicked ON a piece.)
      * @return boolean true if the piece is valid, false otherwise
      */
-    private boolean selectedPieceIsValid(){
-        if ( currentPiece == null ) // user tried to select an empty square
+    private boolean selectedPieceIsValid() {
+        if (currentPiece == null) // user tried to select an empty square
         {
             return false;
         }
-        if ( currentPlayer == 2 ) // black player
+        if (currentPlayer == 2) // black player
         {
-            if ( currentPiece.getColorOfPiece() == ChessGamePiece.BLACK ){
+            if (currentPiece.getColorOfPiece() == ChessGamePiece.BLACK) {
                 return true;
             }
             return false;
-        }
-        else
+        } else
         // white player
         {
-            if ( currentPiece.getColorOfPiece() == ChessGamePiece.WHITE ){
+            if (currentPiece.getColorOfPiece() == ChessGamePiece.WHITE) {
                 return true;
             }
             return false;
@@ -135,19 +131,17 @@ public class ChessGameEngine{
      *            will check if the other player's king is in check.
      * @return true if the king is in check, false otherwise
      */
-    public boolean isKingInCheck( boolean checkCurrent ){
-        if ( checkCurrent ){
-            if ( currentPlayer == 1 ){
-                return king1.isChecked( board );
+    public boolean isKingInCheck(boolean checkCurrent) {
+        if (checkCurrent) {
+            if (currentPlayer == 1) {
+                return king1.isChecked(board);
             }
-            return king2.isChecked( board );
-        }
-        else
-        {
-            if ( currentPlayer == 2 ){
-                return king1.isChecked( board );
+            return king2.isChecked(board);
+        } else {
+            if (currentPlayer == 2) {
+                return king1.isChecked(board);
             }
-            return king2.isChecked( board );
+            return king2.isChecked(board);
         }
     }
     /**
@@ -157,16 +151,14 @@ public class ChessGameEngine{
      *            the string to display to the user (i.e. stalemate, checkmate,
      *            etc)
      */
-    private void askUserToPlayAgain( String endGameStr ){
+    private void askUserToPlayAgain(String endGameStr) {
         int resp =
-            JOptionPane.showConfirmDialog( board.getParent(), endGameStr
-                + " Do you want to play again?" );
-        if ( resp == JOptionPane.YES_OPTION ){
+            JOptionPane.showConfirmDialog(board.getParent(), endGameStr +
+                " Do you want to play again?");
+        if (resp == JOptionPane.YES_OPTION) {
             reset();
-        }
-        else
-        {
-            board.resetBoard( false );
+        } else {
+            board.resetBoard(false);
             // System.exit(0);
         }
     }
@@ -175,29 +167,27 @@ public class ChessGameEngine{
      * 'normal'). If it should not, the user is asked to play again (see above
      * method).
      */
-    private void checkGameConditions(){
+    private void checkGameConditions() {
         int origPlayer = currentPlayer;
-        for ( int i = 0; i < 2; i++ ){
+        for (int i = 0; i < 2; i++) {
             int gameLostRetVal = determineGameLost();
-            if ( gameLostRetVal < 0 ){
-                askUserToPlayAgain( "Game over - STALEMATE. You should both go"
-                    + " cry in a corner!" );
+            if (gameLostRetVal < 0) {
+                askUserToPlayAgain("Game over - STALEMATE. You should both go" +
+                    " cry in a corner!");
                 return;
-            }
-            else if ( gameLostRetVal > 0 ){
-                askUserToPlayAgain( "Game over - CHECKMATE. " + "Player "
-                    + gameLostRetVal + " loses and should go"
-                    + " cry in a corner!" );
+            } else if (gameLostRetVal > 0) {
+                askUserToPlayAgain("Game over - CHECKMATE. " + "Player " +
+                    gameLostRetVal + " loses and should go" +
+                    " cry in a corner!");
                 return;
-            }
-            else if ( isKingInCheck( true ) ){
+            } else if (isKingInCheck(true)) {
                 JOptionPane.showMessageDialog(
                     board.getParent(),
                     "Be careful player " + currentPlayer + ", " +
                     "your king is in check! Your next move must get " +
                     "him out of check or you're screwed.",
                     "Warning",
-                    JOptionPane.WARNING_MESSAGE );
+                    JOptionPane.WARNING_MESSAGE);
             }
             currentPlayer = currentPlayer == 1 ? 2 : 1;
             // check the next player's conditions as well.
@@ -212,21 +202,21 @@ public class ChessGameEngine{
      * @return int 1 or 2 for the losing play, -1 for stalemate, or 0 for a
      *         still valid game.
      */
-    public int determineGameLost(){
-        if ( king1.isChecked( board ) && !playerHasLegalMoves( 1 ) ) // player 1
+    public int determineGameLost() {
+        if (king1.isChecked(board) && !playerHasLegalMoves(1)) // player 1
         // loss
         {
             return 1;
         }
-        if ( king2.isChecked( board ) && !playerHasLegalMoves( 2 ) ) // player 2
+        if (king2.isChecked(board) && !playerHasLegalMoves(2)) // player 2
         // loss
         {
             return 2;
         }
-        if ( ( !king1.isChecked( board ) && !playerHasLegalMoves( 1 ) )
-            || ( !king2.isChecked( board ) && !playerHasLegalMoves( 2 ) )
-            || ( board.getAllWhitePieces().size() == 1 &&
-                board.getAllBlackPieces().size() == 1 ) ) // stalemate
+        if ((!king1.isChecked(board) && !playerHasLegalMoves(1)) ||
+            (!king2.isChecked(board) && !playerHasLegalMoves(2)) ||
+            (board.getAllWhitePieces().size() == 1 &&
+                board.getAllBlackPieces().size() == 1)) // stalemate
         {
             return -1;
         }
@@ -241,68 +231,59 @@ public class ChessGameEngine{
      * @param e
      *            the mouse event from the listener
      */
-    public void determineActionFromSquareClick( MouseEvent e ){
-        BoardSquare squareClicked = (BoardSquare)e.getSource();
+    public void determineActionFromSquareClick(MouseEvent e) {
+        BoardSquare squareClicked = (BoardSquare) e.getSource();
         ChessGamePiece pieceOnSquare = squareClicked.getPieceOnSquare();
         board.clearColorsOnBoard();
-        if ( firstClick ){
+        if (firstClick) {
             currentPiece = squareClicked.getPieceOnSquare();
-            if ( selectedPieceIsValid() ){
-                currentPiece.showLegalMoves( board );
-                squareClicked.setBackground( Color.GREEN );
+            if (selectedPieceIsValid()) {
+                currentPiece.showLegalMoves(board);
+                squareClicked.setBackground(Color.GREEN);
                 firstClick = false;
-            }
-            else
-            {
-                if ( currentPiece != null ){
+            } else {
+                if (currentPiece != null) {
                     JOptionPane.showMessageDialog(
                         squareClicked,
-                        "You tried to pick up the other player's piece! "
-                            + "Get some glasses and pick a valid square.",
+                        "You tried to pick up the other player's piece! " +
+                        "Get some glasses and pick a valid square.",
                         "Illegal move",
-                        JOptionPane.ERROR_MESSAGE );
-                }
-                else
-                {
+                        JOptionPane.ERROR_MESSAGE);
+                } else {
                     JOptionPane.showMessageDialog(
                         squareClicked,
-                        "You tried to pick up an empty square! "
-                            + "Get some glasses and pick a valid square.",
+                        "You tried to pick up an empty square! " +
+                        "Get some glasses and pick a valid square.",
                         "Illegal move",
-                        JOptionPane.ERROR_MESSAGE );
+                        JOptionPane.ERROR_MESSAGE);
                 }
             }
-        }
-        else
-        {
-            if ( pieceOnSquare == null ||
-                !pieceOnSquare.equals( currentPiece ) ) // moving
+        } else {
+            if (pieceOnSquare == null ||
+                !pieceOnSquare.equals(currentPiece)) // moving
             {
                 boolean moveSuccessful =
                     currentPiece.move(
                         board,
                         squareClicked.getRow(),
-                        squareClicked.getColumn() );
-                if ( moveSuccessful ){
+                        squareClicked.getColumn());
+                if (moveSuccessful) {
                     checkGameConditions();
-                }
-                else
-                {
+                } else {
                     int row = squareClicked.getRow();
                     int col = squareClicked.getColumn();
                     JOptionPane.showMessageDialog(
                         squareClicked,
-                        "The move to row " + ( row + 1 ) + " and column "
-                            + ( col + 1 )
-                            + " is either not valid or not legal "
-                            + "for this piece. Choose another move location, "
-                            + "and try using your brain this time!",
+                        "The move to row " + (row + 1) + " and column " +
+                        (col + 1) +
+                        " is either not valid or not legal " +
+                        "for this piece. Choose another move location, " +
+                        "and try using your brain this time!",
                         "Invalid move",
-                        JOptionPane.ERROR_MESSAGE );
+                        JOptionPane.ERROR_MESSAGE);
                 }
                 firstClick = true;
-            }
-            else
+            } else
             // user is just unselecting the current piece
             {
                 firstClick = true;
